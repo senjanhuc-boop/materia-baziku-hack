@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LEVEL 4 - HACKER BAIK</title>
+<style>
+body { background: black; color: #00ff00; font-family: monospace; text-align: center; padding: 20px; }
+h1 { font-size: 22px; }
+input { font-size: 22px; padding: 12px; width: 130px; text-align: center; margin: 10px; }
+button { background: #00ff00; color: black; font-size: 20px; padding: 12px 22px; border: none; font-weight: bold; margin: 5px; }
+#pesan { font-size: 22px; font-weight: bold; margin-top: 20px; }
+</style>
+</head>
+<body>
+<h1>HALO! GUE CALON HACKER BAIK! [HACKER]</h1>
+<p>Ini web pertama yang gue bikin sendiri pake HP! - LEVEL 4!</p>
+<p id="highscore">HIGH SCORE: Belum ada</p>
+<hr>
+<h2>GAME TEBAK ANGKA 1-200</h2>
+<p>Gue udah mikir 1 angka rahasia. Tebak dong!</p>
+<input type="number" id="tebakan" placeholder="1-200">
+<br>
+<button onclick="tebak()">TEBAK!</button>
+<button onclick="mainLagi()">MAIN LAGI</button>
+<p id="pesan"></p>
+<p>Percobaan: <span id="percobaan">0</span></p>
+<p id="riwayat">Riwayat: </p>
+<script>
+let angkaRahasia = Math.floor(Math.random() * 200) + 1;
+let jumlah = 0;
+let list = [];
+let best = 999;
+function tebak() {
+  let t = document.getElementById("tebakan").value;
+  if (t == "") { document.getElementById("pesan").innerHTML = "Isi dulu angkanya bang!"; return; }
+  t = parseInt(t);
+  jumlah++;
+  list.push(t);
+  document.getElementById("percobaan").innerHTML = jumlah;
+  document.getElementById("riwayat").innerHTML = "Riwayat: " + list.join(", ");
+  if (t == angkaRahasia) {
+    document.getElementById("pesan").innerHTML = "GILA! BENER BANGET! Angkanya " + angkaRahasia + "! Lu menang dalam " + jumlah + "x tebak!";
+    if (jumlah < best) {
+      best = jumlah;
+      document.getElementById("highscore").innerHTML = "HIGH SCORE BARU! " + best + "x tebak! GG PARAH!";
+    }
+  } else if (t < angkaRahasia) {
+    document.getElementById("pesan").innerHTML = "KEKECILAN! Coba lebih gede!";
+  } else {
+    document.getElementById("pesan").innerHTML = "KEGEDEAN! Coba lebih kecil!";
+  }
+  document.getElementById("tebakan").value = "";
+}
+function mainLagi() {
+  angkaRahasia = Math.floor(Math.random() * 200) + 1;
+  jumlah = 0; list = [];
+  document.getElementById("percobaan").innerHTML = 0;
+  document.getElementById("riwayat").innerHTML = "Riwayat: ";
+  document.getElementById("pesan").innerHTML = "Game baru! Angka 1-200 udah gue acak lagi!";
+}
+</script>
+</body>
+</html>
